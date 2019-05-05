@@ -32,7 +32,15 @@ public interface ISalesItem {
 		 */
 		double getQuantity();
 		
+		
 	};
+	
+	int getMinQuantity();
+	
+	int getMaxQuantity();
+	
+	
+	
 	
 }
 

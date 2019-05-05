@@ -61,7 +61,7 @@ public abstract class Transaction {
 	
 	 public final void finish() {
 		MinecraftForge.EVENT_BUS.post(new TransactionEvent.Finish(this));
-		
+		doFinish();
 	}
 	
 	private final UUID TransactionId;
