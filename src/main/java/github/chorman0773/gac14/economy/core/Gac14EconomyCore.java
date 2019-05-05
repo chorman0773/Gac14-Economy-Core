@@ -7,9 +7,14 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import net.minecraftforge.fml.common.Mod;
 
+import java.io.IOException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.google.gson.JsonObject;
+
+import github.chorman0773.gac14.Gac14Core;
 import github.chorman0773.gac14.Gac14Module;
 
 
@@ -55,9 +60,19 @@ public class Gac14EconomyCore
     	return Eco;
     }
     
+    private void checkConfig() {
+    	try {
+    		if(config==null) 
+    			config = Gac14Core.getInstance().getConfig("gac14:economy/core");
+    	}catch(IOException e) {
+    		throw new RuntimeException(e);
+    	}
+    }
+    
+    private JsonObject config;
     public double getInitialBalance() {
-    	
-    	return 0.0;
+    	checkConfig();
+    	return config.get("init-bal").getAsDouble();
     }
     
 }
