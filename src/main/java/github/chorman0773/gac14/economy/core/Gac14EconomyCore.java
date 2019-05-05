@@ -16,6 +16,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import github.chorman0773.gac14.Gac14Module;
+
 import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -38,9 +40,9 @@ public class Gac14EconomyCore
     // Event bus for receiving Registry Events)
     @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
-       
-   
-       
+       public static void registerModule(RegistryEvent.Register<Gac14Module<?>> register) {
+    	   register.getRegistry().register(Gac14EconomyCore.getInstance().getModule());
+       }
     }
     
     private static Gac14EconomyCore instance;
@@ -49,15 +51,11 @@ public class Gac14EconomyCore
     
     public static Gac14EconomyCore getInstance(){
     	assert instance != null;
-    	return instance;
-    	
+    	return instance;	
     }
-  
- 
     
-    
-    
-    
-    
+    public EcoCoreModule getModule() {
+    	return Eco;
+    }
     
 }
