@@ -26,7 +26,10 @@ public class Gac14EconomyCore
     private static final Logger LOGGER = LogManager.getLogger();
 
     public Gac14EconomyCore() {
-
+    	
+    	assert instance == null;
+    	instance = this;
+    	
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -35,10 +38,26 @@ public class Gac14EconomyCore
     // Event bus for receiving Registry Events)
     @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
-        @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-            // register a new block here
-            LOGGER.info("HELLO from Register Block");
-        }
+       
+   
+       
     }
+    
+    private static Gac14EconomyCore instance;
+    
+    private EcoCoreModule Eco = new EcoCoreModule();
+    
+    public static Gac14EconomyCore getInstance(){
+    	assert instance != null;
+    	return instance;
+    	
+    }
+  
+ 
+    
+    
+    
+    
+    
+    
 }
