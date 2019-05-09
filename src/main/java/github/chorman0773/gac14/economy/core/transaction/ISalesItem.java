@@ -85,15 +85,15 @@ public interface ISalesItem {
 	 * Gets the minimum advertised quantity. 
 	 * This value must be less-than or equal-to the maximum advertised quantity.
 	 * Any attempts to request a quantity that is less-than this value MAY or MAY NOT be honored (this is implementation-defined).
-	 * If the request is not honored, then the appropriate error value SHOULD be returned.
+	 * If the request is not honored, then the appropriate error value MUST be returned.
 	 * @return The minimum quantity
 	 */
 	int getMinQuantity();
 	
 	/**
 	 * Gets the maximum advertised quantity. 
-	 * Any attempts to request a quantity that is greater-than this value SHOULD NOT be honored.
-	 * If the request is not honored, then the appropriate error value SHOULD be returned.
+	 * Any attempts to request a quantity that is greater-than this value MUST NOT be honored.
+	 * If the request is not honored, then the appropriate error value MUST be returned.
 	 * @return The maximum quantity
 	 */
 	int getMaxQuantity();
