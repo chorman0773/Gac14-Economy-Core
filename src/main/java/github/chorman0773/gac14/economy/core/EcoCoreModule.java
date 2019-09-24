@@ -9,7 +9,7 @@ public final class EcoCoreModule extends Gac14Module<EcoCoreModule> {
 	@Override
 	public ResourceLocation getModuleName() {
 		// TODO Auto-generated method stub
-		return ResourceLocation.makeResourceLocation("gac14:economy/core");
+		return new ResourceLocation("gac14:economy/core");
 	}
 
 	@Override

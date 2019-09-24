@@ -14,7 +14,7 @@ apply plugin: 'eclipse'
 
 version = '1.0'
 group = 'github.chorman0773.gac14' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'gac14-base'
+archivesBaseName = 'gac14-economy-core'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
@@ -24,7 +24,7 @@ minecraft {
     // stable_#            Stables are built at the discretion of the MCP team.
     // Use non-default mappings at your own risk. they may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: 'snapshot', version: '20180921-1.13'
+    mappings channel: 'snapshot', version: '20190904-1.14.3'
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
     
     // accessTransformer = file('build/resources/main/META-INF/accesstransformer.cfg')
@@ -42,7 +42,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                "gac14-economy-core" {
                     source sourceSets.main
                 }
             }
@@ -58,7 +58,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                "gac14-economy-core" {
                     source sourceSets.main
                 }
             }
@@ -66,12 +66,21 @@ minecraft {
     }
 }
 
+
+repositories {
+	maven {
+        name = "Gac14 Maven"
+        url = "https://gac14-maven.glitch.me/maven/"
+	}
+}
+
 dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.13.2-25.0.42'
-
+    minecraft 'net.minecraftforge:forge:1.14.4-28.0.92'
+	
+	compile fg.deobf('github.chorman0773.gac14:gac14-core:1.4')
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"
     // compile "some.group:artifact:version"
@@ -85,7 +94,8 @@ dependencies {
 
     // These dependencies get remapped to your current MCP mappings
     // deobf 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
+	
+	
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html

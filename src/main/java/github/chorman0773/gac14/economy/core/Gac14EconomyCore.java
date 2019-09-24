@@ -1,11 +1,18 @@
 package github.chorman0773.gac14.economy.core;
 
 
+import net.minecraft.nbt.DoubleNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.util.Direction;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.Capability.IStorage;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 import java.io.IOException;
 
@@ -16,6 +23,7 @@ import com.google.gson.JsonObject;
 
 import github.chorman0773.gac14.Gac14Core;
 import github.chorman0773.gac14.Gac14Module;
+import github.chorman0773.gac14.economy.core.player.CapabilityBalance;
 
 
 
@@ -32,9 +40,7 @@ public class Gac14EconomyCore
     	instance = this;
     	
         // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
-        
-        
+        MinecraftForge.EVENT_BUS.addListener(this::setup);
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
@@ -73,6 +79,23 @@ public class Gac14EconomyCore
     public double getInitialBalance() {
     	checkConfig();
     	return config.get("init-bal").getAsDouble();
+    }
+    
+    private void setup(FMLCommonSetupEvent event) {
+    	CapabilityManager.INSTANCE.register(CapabilityBalance.class, new IStorage<CapabilityBalance>() {
+
+			@Override
+			public INBT writeNBT(Capability<CapabilityBalance> capability, CapabilityBalance instance, Direction side) {
+				// TODO Auto-generated method stub
+				return instance.serializeNBT();
+			}
+
+			@Override
+			public void readNBT(Capability<CapabilityBalance> capability, CapabilityBalance instance, Direction side, INBT nbt) {
+				instance.deserializeNBT((DoubleNBT)nbt);
+			}
+    		
+    	}, ()->new CapabilityBalance(getInitialBalance()));
     }
     
 }
